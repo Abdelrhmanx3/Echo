@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { db } from "@/lib/firebase";
 import { ref, onValue, push, set, onDisconnect } from "firebase/database";
 import { useUser } from "@clerk/nextjs";
-import { CheckCheck, SendHorizontal, SendHorizontalIcon } from "lucide-react";
+import { CheckCheck, SendHorizontalIcon } from "lucide-react";
 
 type Message = {
     id: string;
