@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { db } from "@/lib/firebase";
 import { ref, onValue, push, set, onDisconnect } from "firebase/database";
 import { useUser } from "@clerk/nextjs";
-import { CheckCheck } from "lucide-react";
+import { CheckCheck, SendHorizontal, SendHorizontalIcon } from "lucide-react";
 
 type Message = {
     id: string;
@@ -31,6 +31,7 @@ export default function Chat({
     const [otherTyping, setOtherTyping] = useState(false);
     const [otherUserName, setOtherUserName] = useState<string>("Chat");
     const bottomRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
     const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const chatId = user ? getChatId(user.id, otherUserId) : null;
@@ -98,7 +99,10 @@ export default function Chat({
 
     // Auto-scroll
     useEffect(() => {
-        bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+        const timer = setTimeout(() => {
+            bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+        }, 50);
+        return () => clearTimeout(timer);
     }, [messages]);
 
     // Cleanup typing status when leaving
@@ -147,6 +151,7 @@ export default function Chat({
         if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
 
         setText("");
+        inputRef.current?.focus();
     };
 
     return (
@@ -194,6 +199,7 @@ export default function Chat({
             {/* Input */}
             <div className="flex gap-2 p-3 border-t border-zinc-200 dark:border-zinc-800">
                 <input
+                    ref={inputRef}
                     value={text}
                     onChange={(e) => handleTyping(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && sendMessage()}
@@ -202,9 +208,9 @@ export default function Chat({
                 />
                 <button
                     onClick={sendMessage}
-                    className="px-4 py-2 bg-blue-500 text-white rounded-full"
+                    className="px-4 py-2 bg-blue-500 text-white rounded-full cursor-pointer"
                 >
-                    Send
+                    <SendHorizontalIcon />
                 </button>
             </div>
         </div>

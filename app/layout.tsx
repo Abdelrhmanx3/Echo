@@ -3,7 +3,6 @@ import { Geist, Geist_Mono, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ClerkProvider } from "@clerk/nextjs";
-import Navbar from "@/components/Navbar";
 import Providers from "./Providers";
 const jetbrainsMono = JetBrains_Mono({
     subsets: ["latin"],
@@ -50,7 +49,6 @@ export default function RootLayout({
             >
                 <ClerkProvider>
                     <Providers>
-                        <Navbar />
                         <div className="flex-1 min-h-0">{children}</div>
                     </Providers>
                 </ClerkProvider>
