@@ -24,7 +24,9 @@ export default function Home() {
 
     return (
         <div className="flex flex-col h-full">
-            <Navbar />
+            <div className={selectedChatId ? "hidden md:block" : "block"}>
+                <Navbar />
+            </div>
             <div className="grid flex-1 min-h-0 overflow-hidden md:grid-cols-[400px_1fr]">
                 <div
                     className={`h-full overflow-hidden ${selectedChatId ? "hidden md:block" : "block"}`}
