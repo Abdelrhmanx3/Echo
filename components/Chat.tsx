@@ -208,7 +208,7 @@ export default function Chat({
                 />
                 <button
                     onClick={sendMessage}
-                    className="px-4 py-2 bg-blue-500 text-white rounded-full cursor-pointer"
+                    className="px-4 py-2 bg-primary text-white rounded-full cursor-pointer"
                 >
                     <SendHorizontalIcon />
                 </button>
